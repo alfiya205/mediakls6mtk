@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Media Pembelajaran Interaktif Rasio Kelas 6 SD</title>
+  <style>
+    :root{
+      --ink:#26314f;
+      --muted:#5d6783;
+      --white:#ffffff;
+      --cream:#fff8dc;
+      --primary:#6d5dfc;
+      --primary2:#8b5cf6;
+      --teal:#00aeb3;
+      --green:#25c46a;
+      --yellow:#ffd166;
+      --orange:#ff9f1c;
+      --pink:#ff5ca8;
+      --blue:#00a3ff;
+      --red:#ff5573;
+      --soft-blue:#e7f8ff;
+      --soft-pink:#ffe7f3;
+      --soft-purple:#f0ecff;
+      --shadow:0 18px 40px rgba(55, 66, 116, .16);
+      --shadow2:0 9px 18px rgba(55, 66, 116, .11);
+      --radius:26px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Comic Sans MS","Trebuchet MS",system-ui,-apple-system,Segoe UI,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 9% 12%, rgba(255,255,255,.85) 0 24px, transparent 25px),
+        radial-gradient(circle at 90% 9%, rgba(255,255,255,.78) 0 38px, transparent 39px),
+        radial-gradient(circle at 82% 78%, rgba(255,255,255,.65) 0 30px, transparent 31px),
+        linear-gradient(135deg,#dff8ff 0%,#fff7d6 48%,#ffe1f1 100%);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    button,input{font:inherit}
+    .skip{position:absolute;left:-999px;top:10px;background:#fff;padding:10px;border-radius:12px;z-index:1000}
+    .skip:focus{left:10px}
+
+    .floaters{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+    .floater{position:absolute;font-size:48px;opacity:.28;filter:drop-shadow(0 10px 12px rgba(0,0,0,.10));animation:floaty 8.5s ease-in-out infinite}
+    .f1{left:4%;top:18%;animation-delay:0s}.f2{right:5%;top:22%;animation-delay:1.2s}.f3{left:7%;bottom:12%;animation-delay:2.1s}.f4{right:13%;bottom:10%;animation-delay:3s}.f5{left:48%;top:8%;animation-delay:4.1s;font-size:38px}
+    @keyframes floaty{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-22px) rotate(6deg)}}
+
+    header.hero{
+      text-align:center;
+      padding:34px 18px 24px;
+      background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,0));
+      position:relative;
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 15px;border-radius:999px;
+      background:#fff;border:2px solid rgba(109,93,252,.16);
+      box-shadow:var(--shadow2);
+      color:#4d3fcf;font-size:14px;font-weight:900;
+    }
+    h1{
+      margin:15px auto 10px;
+      max-width:1050px;
+      line-height:1.04;
+      font-size:clamp(34px,6.2vw,76px);
+      letter-spacing:-1.8px;
+      text-shadow:0 5px 0 rgba(255,255,255,.85);
+    }
+    .rainbow{background:linear-gradient(90deg,#6d5dfc,#00aeb3,#25c46a,#ff9f1c,#ff5ca8);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p{max-width:920px;margin:0 auto;color:var(--muted);line-height:1.6;font-size:clamp(16px,2vw,21px)}
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      border:0;border-radius:18px;padding:13px 18px;
+      color:#fff;text-decoration:none;font-weight:900;cursor:pointer;
+      background:linear-gradient(135deg,var(--primary),var(--pink));
+      box-shadow:0 12px 22px rgba(109,93,252,.24);
+      transition:.18s transform,.18s filter,.18s box-shadow;
+    }
+    .btn:hover{transform:translateY(-3px);filter:saturate(1.08);box-shadow:0 16px 28px rgba(109,93,252,.30)}
+    .btn:active{transform:translateY(0) scale(.98)}
+    .btn.alt{background:linear-gradient(135deg,var(--teal),var(--green))}
+    .btn.warn{background:linear-gradient(135deg,var(--orange),var(--pink))}
+    .btn.ghost{background:#fff;color:#4d3fcf;border:2px solid #ded8ff;box-shadow:var(--shadow2)}
+
+    .progress-wrap{max-width:780px;margin:16px auto 0;background:#fff;border-radius:999px;border:2px solid #e5e0ff;padding:5px;box-shadow:var(--shadow2)}
+    .progress-bar{height:18px;width:0%;border-radius:999px;background:linear-gradient(90deg,#6d5dfc,#00aeb3,#25c46a,#ff9f1c,#ff5ca8);transition:width .35s ease}
+    .progress-text{margin-top:7px;color:#4d3fcf;font-size:13px;font-weight:900}
+
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      max-width:1200px;margin:0 auto 18px;
+      padding:8px 12px;
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(255,255,255,.86);
+      border-radius:0 0 25px 25px;
+      box-shadow:0 12px 28px rgba(52,64,112,.13);
+      backdrop-filter:blur(13px);
+    }
+    nav{display:flex;gap:8px;overflow:auto;padding-bottom:2px;scrollbar-width:thin}
+    nav a{white-space:nowrap;text-decoration:none;background:#fff;padding:9px 13px;border-radius:999px;border:2px solid rgba(109,93,252,.12);font-size:13px;font-weight:900;box-shadow:0 5px 10px rgba(0,0,0,.04)}
+    nav a:hover{background:#f4f0ff;color:#4d3fcf}
+
+    main{max-width:1200px;margin:0 auto;padding:0 16px 42px}
+    .section{
+      position:relative;overflow:hidden;
+      margin:22px 0;padding:24px;
+      background:rgba(255,255,255,.87);
+      border:2px solid rgba(255,255,255,.92);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .section:before{content:"";position:absolute;right:-78px;top:-78px;width:190px;height:190px;border-radius:50%;background:linear-gradient(135deg,rgba(109,93,252,.14),rgba(255,92,168,.10))}
+    .section-title{position:relative;display:flex;align-items:center;gap:12px;margin:0 0 14px}
+    .icon{width:50px;height:50px;min-width:50px;border-radius:17px;background:linear-gradient(135deg,#fff,#f0ecff);border:2px solid rgba(109,93,252,.13);display:grid;place-items:center;font-size:28px;box-shadow:var(--shadow2)}
+    h2{font-size:clamp(25px,3vw,39px);margin:0;letter-spacing:-.75px;line-height:1.14}
+    h3{margin:0 0 8px;font-size:22px;color:#29365c}
+    .lead{position:relative;margin-top:0;color:var(--muted);font-size:17px;line-height:1.6}
+    .grid{display:grid;gap:16px;position:relative}
+    .two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media(max-width:940px){.three,.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:720px){.two,.three,.four{grid-template-columns:1fr}.section{padding:18px}.topbar{border-radius:0}.hero-actions .btn{width:100%}}
+    .card{
+      position:relative;overflow:hidden;
+      background:linear-gradient(180deg,#fff,#f8fbff);
+      border:2px solid rgba(109,93,252,.10);
+      border-radius:23px;padding:18px;
+      box-shadow:0 8px 16px rgba(73,87,130,.08);
+    }
+    .card p,.card li{line-height:1.55;color:#4d5877}
+    .mini-badge{display:inline-flex;align-items:center;gap:6px;margin:4px 4px 4px 0;padding:7px 10px;border-radius:999px;background:#ecfbff;color:#007983;font-size:13px;font-weight:900}
+    .mini-badge.pink{background:#fff0f7;color:#b91c6b}.mini-badge.purple{background:#f0ecff;color:#4d3fcf}.mini-badge.yellow{background:#fff7db;color:#8a5700}
+    .note{position:relative;border-left:7px solid var(--orange);background:#fff8e8;border-radius:18px;padding:14px 16px;color:#65420e;line-height:1.55}
+    .formula{display:inline-block;margin:4px 3px;padding:8px 12px;border-radius:16px;background:#202b4b;color:#fff;font-weight:900;letter-spacing:.2px;box-shadow:0 5px 0 rgba(0,0,0,.10)}
+    .formula.purple{background:#6d5dfc}.formula.green{background:#08a66c}.formula.pink{background:#e9458f}.formula.blue{background:#0b92dd}.formula.orange{background:#e67e00}.formula.teal{background:#00a0a5}
+
+    /* peta konsep */
+    .map{position:relative;padding:10px 0 4px}
+    .map-root{margin:0 auto 22px;max-width:250px;text-align:center;background:linear-gradient(135deg,#7c5cff,#4d3cc8);color:#fff;border-radius:18px;padding:14px 18px;font-weight:900;box-shadow:var(--shadow2)}
+    .map-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start;position:relative;z-index:1}
+    .map-head{background:#00a99d;color:#fff;border-radius:16px;padding:12px 10px;font-weight:900;box-shadow:0 8px 14px rgba(0,169,157,.18);min-height:54px;display:grid;place-items:center;text-align:center}
+    .map-items{display:grid;gap:10px;margin-top:14px}.map-item{background:#108dd3;color:#fff;border-radius:14px;padding:11px 9px;font-size:13px;font-weight:900;box-shadow:0 8px 14px rgba(16,141,211,.16);text-align:center}.map-item:nth-child(even){background:#1471c5}.map-item.special{background:#6d5dfc}
+    .map-lines{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.45}
+    @media(max-width:760px){.map-cols{grid-template-columns:1fr}.map-lines{display:none}}
+
+    /* visual ratio */
+    .story-card{display:flex;gap:14px;align-items:flex-start}
+    .mascot{font-size:44px;line-height:1;padding:12px;background:#fff;border-radius:18px;box-shadow:var(--shadow2);border:2px solid rgba(109,93,252,.12)}
+    .ratio-visual{display:flex;gap:8px;flex-wrap:wrap;align-items:center;min-height:62px;padding:12px;background:#f6f9ff;border:2px dashed #d9e0ff;border-radius:20px;margin-top:10px}
+    .dot{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:900;box-shadow:0 6px 10px rgba(38,50,75,.12);border:2px solid rgba(255,255,255,.78)}
+    .dot.red{background:linear-gradient(135deg,#ff5573,#ff9f1c)}.dot.blue{background:linear-gradient(135deg,#00a3ff,#00aeb3)}.dot.green{background:linear-gradient(135deg,#25c46a,#7bdc65)}.dot.pink{background:linear-gradient(135deg,#ff5ca8,#8b5cf6)}
+
+    .interactive-panel{position:relative;background:linear-gradient(180deg,#fff,#f7fcff);border-radius:24px;padding:18px;border:2px solid rgba(0,174,179,.14);box-shadow:var(--shadow2)}
+    .control{margin:12px 0}.control label{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-weight:900;color:#313b5d}.pill-value{background:#eef0ff;color:#4d3fcf;border-radius:999px;padding:2px 9px;white-space:nowrap}input[type=range]{width:100%;accent-color:var(--primary);cursor:pointer}
+    .result-box{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.result{background:#fff;border:2px solid #e8ecff;border-radius:18px;padding:12px;text-align:center}.result strong{display:block;font-size:22px;color:#4d3fcf}.result small{color:#68728f;font-weight:800}
+    @media(max-width:620px){.result-box{grid-template-columns:1fr}}
+    .feedback{min-height:32px;margin-top:12px;font-weight:900;border-radius:14px;padding:8px 10px;background:#f5f7ff;color:#4b5270}.feedback.good{background:#eafff2;color:#116334}.feedback.bad{background:#fff0f3;color:#9f1239}.feedback.info{background:#ecfbff;color:#006c75}
+    .barviz{display:flex;align-items:end;gap:9px;height:160px;padding:12px;background:#f7f9ff;border-radius:20px;border:2px dashed #dde4ff;margin-top:12px;overflow:hidden}.bar{flex:1;min-height:18px;border-radius:12px 12px 7px 7px;background:linear-gradient(180deg,#ff5ca8,#ff9f1c);display:flex;align-items:flex-start;justify-content:center;color:#fff;font-size:12px;font-weight:900;padding:5px 4px 0;transition:.25s height}.bar.b2{background:linear-gradient(180deg,#00aeb3,#25c46a)}.bar.b3{background:linear-gradient(180deg,#6d5dfc,#00a3ff)}
+
+    .unit-grid{display:grid;grid-template-columns:repeat(10,22px);gap:5px;justify-content:center;min-height:60px;margin:10px auto 0}.unit{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#ff5573,#ff9f1c);border:2px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.12)}.unit.blue{background:linear-gradient(135deg,#72ddf7,#0096c7)}.unit.green{background:linear-gradient(135deg,#25c46a,#9be15d)}
+
+    /* games */
+    .choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}@media(max-width:650px){.choice-grid{grid-template-columns:1fr}}
+    .choice,.quiz-option,.match-card{border:2px solid #e5e9ff;background:#fff;border-radius:18px;padding:13px;text-align:left;cursor:pointer;font-weight:900;color:#303b5f;box-shadow:0 8px 14px rgba(48,59,95,.07);transition:.15s transform,.15s border,.15s background}.choice:hover,.quiz-option:hover,.match-card:hover,.match-card.selected{transform:translateY(-2px);border-color:#b8b0ff;background:#f7f5ff}.choice.correct,.quiz-option.correct,.match-card.done{border-color:#22c55e;background:#eafff2;color:#116334}.choice.wrong,.quiz-option.wrong{border-color:#fb7185;background:#fff0f3;color:#9f1239}.choice:disabled{cursor:default}
+    .match-area{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:740px){.match-area{grid-template-columns:1fr}}.match-card{margin-bottom:10px}.match-card.done{cursor:default}
+    .quiz-card{border-top:6px solid var(--primary);margin-bottom:15px}.quiz-options{display:grid;gap:10px;margin-top:10px}.score-box{font-size:21px;font-weight:900;text-align:center;border-radius:22px;padding:16px;background:linear-gradient(135deg,#f0ecff,#ecfbff);border:2px solid #e2ddff;margin-top:14px}
+
+    .worksheet{background:#fff;border:2px dashed #b9c0e5;border-radius:22px;padding:18px}.worksheet ol{margin:0;padding-left:22px}.worksheet li{margin:9px 0;color:#34405e;line-height:1.5}
+    details{background:#fff;border:2px solid #e5e9ff;border-radius:18px;padding:13px;margin-top:12px}summary{cursor:pointer;font-weight:900;color:#4d3fcf}
+    footer{text-align:center;color:#5f6d8c;padding:18px 14px 36px;font-weight:900}
+    .confetti{position:fixed;top:-10px;width:10px;height:16px;border-radius:3px;background:var(--pink);z-index:9999;pointer-events:none;animation:fall 1.8s linear forwards}@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:0}}
+    @media print{.topbar,.hero-actions,.floaters,.progress-wrap,.btn:not(.print-keep){display:none!important}body{background:#fff}.section{box-shadow:none;border:1px solid #ccc;break-inside:avoid}.worksheet{border:1px solid #999}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#materi">Lompat ke materi</a>
+  <div class="floaters" aria-hidden="true"><div class="floater f1">🍎</div><div class="floater f2">🧮</div><div class="floater f3">⭐</div><div class="floater f4">🎲</div><div class="floater f5">⚖️</div></div>
+
+  <header class="hero" id="beranda">
+    <span class="badge">🌈 Media Pembelajaran Interaktif • Matematika Kelas 6 SD</span>
+    <h1>Petualangan <span class="rainbow">Rasio</span><br/>yang Ceria dan Seru</h1>
+    <p>
+      Ayo belajar membandingkan benda, menulis rasio, menyederhanakan rasio, mencari rasio senilai,
+      mengenal rasio satuan, serta menerapkan rasio dalam masalah sehari-hari.
+    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#tujuan">🚀 Mulai Belajar</a>
+      <a class="btn alt" href="#interaktif">🎮 Coba Interaktif</a>
+      <a class="btn warn" href="#kuis">🏆 Kerjakan Kuis</a>
+    </div>
+    <div class="progress-wrap" aria-label="Progress belajar">
+      <div id="progressBar" class="progress-bar"></div>
+      <div id="progressText" class="progress-text">Progress bintang: 0%</div>
+    </div>
+  </header>
+
+  <div class="topbar">
+    <nav aria-label="Navigasi media pembelajaran">
+      <a href="#tujuan">CP & Tujuan</a>
+      <a href="#peta">Peta Konsep</a>
+      <a href="#materi">Materi</a>
+      <a href="#konsep">Konsep Rasio</a>
+      <a href="#kesamaan">Kesamaan Rasio</a>
+      <a href="#penerapan">Penerapan</a>
+      <a href="#interaktif">Interaktif</a>
+      <a href="#game">Game</a>
+      <a href="#kuis">Kuis</a>
+      <a href="#aktivitas">LKPD</a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="section" id="tujuan">
+      <div class="section-title"><span class="icon">🎯</span><h2>CP dan Tujuan Pembelajaran</h2></div>
+      <p class="lead">
+        Media ini disusun untuk materi <b>Rasio kelas 6 SD</b>. Alur materi mengikuti peta konsep:
+        konsep rasio, kesamaan rasio, dan penerapan rasio dalam konteks sehari-hari.
+      </p>
+      <div class="grid two">
+        <div class="card">
+          <h3>📌 Capaian Pembelajaran Rasio</h3>
+          <p>
+            Peserta didik mampu menyatakan, membandingkan, menyederhanakan, dan menggunakan rasio
+            untuk menyelesaikan masalah sehari-hari, termasuk rasio bagian terhadap bagian,
+            bagian terhadap keseluruhan, rasio senilai, dan rasio satuan.
+          </p>
+          <span class="mini-badge">Membandingkan benda</span>
+          <span class="mini-badge pink">Rasio senilai</span>
+          <span class="mini-badge purple">Rasio satuan</span>
+          <span class="mini-badge yellow">Masalah sehari-hari</span>
+        </div>
+        <div class="card">
+          <h3>✅ Tujuan Pembelajaran</h3>
+          <ul>
+            <li>Menjelaskan arti rasio dengan kata-kata sendiri.</li>
+            <li>Menulis rasio menggunakan bentuk <b>a : b</b>.</li>
+            <li>Menyederhanakan rasio menggunakan FPB.</li>
+            <li>Menentukan rasio senilai dan rasio satuan.</li>
+            <li>Menyelesaikan soal kontekstual tentang bagian-bagian, keseluruhan, dan durasi waktu.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="peta">
+      <div class="section-title"><span class="icon">🗺️</span><h2>Peta Konsep Rasio</h2></div>
+      <p class="lead">Peta konsep ini disesuaikan dengan materi rasio kelas 6 SD.</p>
+      <div class="map" aria-label="Peta konsep rasio">
+        <svg class="map-lines" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M500 45 C500 90 180 80 180 135" fill="none" stroke="#00a99d" stroke-width="4" stroke-linecap="round"/>
+          <path d="M500 45 C500 90 500 80 500 135" fill="none" stroke="#00a99d" stroke-width="4" stroke-linecap="round"/>
+          <path d="M500 45 C500 90 820 80 820 135" fill="none" stroke="#00a99d" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <div class="map-root">RASIO</div>
+        <div class="map-cols">
+          <div>
+            <div class="map-head">Konsep Rasio</div>
+            <div class="map-items">
+              <div class="map-item">Membandingkan benda</div>
+              <div class="map-item">Pengertian rasio</div>
+            </div>
+          </div>
+          <div>
+            <div class="map-head">Kesamaan Rasio</div>
+            <div class="map-items">
+              <div class="map-item special">Konsep kesamaan rasio</div>
+              <div class="map-item">Rasio satuan</div>
+            </div>
+          </div>
+          <div>
+            <div class="map-head">Penerapan Rasio</div>
+            <div class="map-items">
+              <div class="map-item">Rasio bagian terhadap bagian</div>
+              <div class="map-item">Rasio bagian terhadap keseluruhan</div>
+              <div class="map-item">Rasio pada durasi waktu</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="materi">
+      <div class="section-title"><span class="icon">📚</span><h2>Materi Inti: Apa itu Rasio?</h2></div>
+      <div class="grid two">
+        <div class="card story-card">
+          <div class="mascot" aria-hidden="true">🦊</div>
+          <div>
+            <h3>Pengertian Rasio</h3>
+            <p>
+              <b>Rasio</b> adalah cara membandingkan dua atau lebih banyak benda/bilangan.
+              Rasio dapat ditulis dengan tanda titik dua, misalnya <span class="formula purple">3 : 2</span>.
+            </p>
+            <p>Contoh: ada 3 apel dan 2 jeruk. Rasio apel terhadap jeruk adalah <b>3 : 2</b>.</p>
+          </div>
+        </div>
+        <div class="card story-card">
+          <div class="mascot" aria-hidden="true">🐼</div>
+          <div>
+            <h3>Cara Membaca Rasio</h3>
+            <p>
+              Rasio <span class="formula blue">5 : 4</span> dibaca <b>lima berbanding empat</b>.
+              Urutan penting! Rasio apel : jeruk berbeda dengan jeruk : apel.
+            </p>
+            <p>Jika apel : jeruk = 5 : 4, maka jeruk : apel = 4 : 5.</p>
+          </div>
+        </div>
+      </div>
+      <div class="note" style="margin-top:16px">
+        💡 <b>Tips:</b> Saat menulis rasio, perhatikan urutan benda yang dibandingkan dan sederhanakan jika bisa.
+      </div>
+    </section>
+
+    <section class="section" id="konsep">
+      <div class="section-title"><span class="icon">⚖️</span><h2>Konsep Rasio: Membandingkan Benda</h2></div>
+      <p class="lead">Lihat contoh visual berikut. Rasio membantu kita menjawab, “berapa banyak dibanding berapa banyak?”</p>
+      <div class="grid three">
+        <div class="card">
+          <h3>🍎 Apel : Jeruk</h3>
+          <div class="ratio-visual" aria-label="3 apel dan 2 jeruk"><span class="dot red">A</span><span class="dot red">A</span><span class="dot red">A</span><span class="dot blue">J</span><span class="dot blue">J</span></div>
+          <p><span class="formula pink">Apel : Jeruk = 3 : 2</span></p>
+        </div>
+        <div class="card">
+          <h3>🧁 Kue Cokelat : Stroberi</h3>
+          <div class="ratio-visual" aria-label="4 cokelat dan 6 stroberi"><span class="dot green">C</span><span class="dot green">C</span><span class="dot green">C</span><span class="dot green">C</span><span class="dot pink">S</span><span class="dot pink">S</span><span class="dot pink">S</span><span class="dot pink">S</span><span class="dot pink">S</span><span class="dot pink">S</span></div>
+          <p><span class="formula green">Cokelat : Stroberi = 4 : 6 = 2 : 3</span></p>
+        </div>
+        <div class="card">
+          <h3>🚲 Roda Sepeda : Sepeda</h3>
+          <div class="ratio-visual" aria-label="6 roda dan 3 sepeda"><span class="dot blue">R</span><span class="dot blue">R</span><span class="dot blue">R</span><span class="dot blue">R</span><span class="dot blue">R</span><span class="dot blue">R</span><span class="dot orange">S</span><span class="dot orange">S</span><span class="dot orange">S</span></div>
+          <p><span class="formula orange">Roda : Sepeda = 6 : 3 = 2 : 1</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kesamaan">
+      <div class="section-title"><span class="icon">🧮</span><h2>Kesamaan Rasio dan Rasio Satuan</h2></div>
+      <div class="grid two">
+        <div class="card">
+          <h3>1. Rasio Senilai</h3>
+          <p>Rasio senilai adalah rasio yang nilainya sama.</p>
+          <p><span class="formula purple">2 : 3 = 4 : 6 = 6 : 9 = 8 : 12</span></p>
+          <p>Caranya: kalikan atau bagi kedua bilangan dengan angka yang sama.</p>
+        </div>
+        <div class="card">
+          <h3>2. Rasio Satuan</h3>
+          <p>Rasio satuan membandingkan sesuatu terhadap <b>1 satuan</b>.</p>
+          <p><span class="formula teal">12 buku : 3 rak = 4 buku per 1 rak</span></p>
+          <p>Caranya: bagi jumlah benda dengan jumlah satuannya.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>🔎 Menyederhanakan Rasio dengan FPB</h3>
+        <p>Contoh: sederhanakan 12 : 18.</p>
+        <p>FPB dari 12 dan 18 adalah 6, maka:</p>
+        <p><span class="formula blue">12 : 18 = (12÷6) : (18÷6) = 2 : 3</span></p>
+      </div>
+    </section>
+
+    <section class="section" id="penerapan">
+      <div class="section-title"><span class="icon">🌟</span><h2>Penerapan Rasio dalam Kehidupan Sehari-hari</h2></div>
+      <div class="grid three">
+        <div class="card">
+          <h3>Bagian terhadap Bagian</h3>
+          <p>Di kelas ada 14 siswa perempuan dan 10 siswa laki-laki.</p>
+          <p><span class="formula pink">Perempuan : Laki-laki = 14 : 10 = 7 : 5</span></p>
+        </div>
+        <div class="card">
+          <h3>Bagian terhadap Keseluruhan</h3>
+          <p>Jumlah siswa = 14 + 10 = 24.</p>
+          <p><span class="formula green">Perempuan : Semua = 14 : 24 = 7 : 12</span></p>
+        </div>
+        <div class="card">
+          <h3>Durasi Waktu</h3>
+          <p>Raka membaca 30 halaman dalam 5 menit.</p>
+          <p><span class="formula orange">30 : 5 = 6 halaman per menit</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="interaktif">
+      <div class="section-title"><span class="icon">🎮</span><h2>Laboratorium Rasio Interaktif</h2></div>
+      <p class="lead">Geser angka-angkanya. Perhatikan bagaimana rasio bagian-bagian dan rasio terhadap keseluruhan berubah.</p>
+      <div class="grid two">
+        <div class="interactive-panel">
+          <h3>🍎 Rasio Apel dan Jeruk</h3>
+          <div class="control">
+            <label for="redRange">Apel merah <span class="pill-value"><span id="redVal">6</span> buah</span></label>
+            <input id="redRange" type="range" min="1" max="20" value="6" />
+          </div>
+          <div class="control">
+            <label for="blueRange">Jeruk biru <span class="pill-value"><span id="blueVal">4</span> buah</span></label>
+            <input id="blueRange" type="range" min="1" max="20" value="4" />
+          </div>
+          <div class="ratio-visual" id="fruitVisual" aria-label="Visual rasio buah"></div>
+          <div class="result-box">
+            <div class="result">Apel : Jeruk<strong id="partRatio">3 : 2</strong><small>bagian : bagian</small></div>
+            <div class="result">Apel : Semua<strong id="wholeRatio">3 : 5</strong><small>bagian : keseluruhan</small></div>
+          </div>
+          <p class="feedback info" id="fruitTip">Rasio 6 : 4 disederhanakan menjadi 3 : 2.</p>
+        </div>
+        <div class="interactive-panel">
+          <h3>⏱️ Rasio Satuan Waktu</h3>
+          <div class="control">
+            <label for="pageRange">Jumlah halaman <span class="pill-value"><span id="pageVal">24</span> halaman</span></label>
+            <input id="pageRange" type="range" min="2" max="80" value="24" />
+          </div>
+          <div class="control">
+            <label for="minuteRange">Waktu membaca <span class="pill-value"><span id="minuteVal">6</span> menit</span></label>
+            <input id="minuteRange" type="range" min="1" max="20" value="6" />
+          </div>
+          <div class="barviz" aria-label="Visual halaman dan waktu">
+            <div class="bar" id="pageBar" style="height:100px">Halaman</div>
+            <div class="bar b2" id="minuteBar" style="height:45px">Menit</div>
+          </div>
+          <div class="result-box">
+            <div class="result">Rasio<strong id="timeRatio">24 : 6</strong><small>halaman : menit</small></div>
+            <div class="result">Rasio Satuan<strong id="unitRate">4</strong><small>halaman per menit</small></div>
+          </div>
+          <p class="feedback info" id="timeTip">Artinya rata-rata 4 halaman dibaca setiap 1 menit.</p>
+        </div>
+      </div>
+      <div class="interactive-panel" style="margin-top:16px">
+        <h3>🔢 Mesin Rasio Senilai</h3>
+        <p class="lead">Masukkan rasio awal dan pilih pengali. Mesin akan membuat rasio senilai.</p>
+        <div class="grid three">
+          <div class="control"><label for="ratioA">Bilangan A <span class="pill-value"><span id="ratioAVal">2</span></span></label><input id="ratioA" type="range" min="1" max="20" value="2" /></div>
+          <div class="control"><label for="ratioB">Bilangan B <span class="pill-value"><span id="ratioBVal">3</span></span></label><input id="ratioB" type="range" min="1" max="20" value="3" /></div>
+          <div class="control"><label for="multiRange">Pengali <span class="pill-value">× <span id="multiVal">4</span></span></label><input id="multiRange" type="range" min="2" max="12" value="4" /></div>
+        </div>
+        <div class="result-box">
+          <div class="result">Rasio Awal<strong id="startRatio">2 : 3</strong><small>sebelum dikalikan</small></div>
+          <div class="result">Rasio Senilai<strong id="equalRatio">8 : 12</strong><small>sesudah dikalikan</small></div>
+        </div>
+        <p class="feedback good" id="equalTip">2 : 3 senilai dengan 8 : 12 karena kedua bilangan dikali 4.</p>
+      </div>
+    </section>
+
+    <section class="section" id="game">
+      <div class="section-title"><span class="icon">🕹️</span><h2>Game Mini Rasio</h2></div>
+      <div class="grid two">
+        <div class="card">
+          <h3>🎯 Pilih Rasio Senilai</h3>
+          <p>Pilih rasio yang senilai dengan <b id="baseRatioText">2 : 3</b>.</p>
+          <div class="choice-grid" id="ratioChoices"></div>
+          <p class="feedback" id="ratioFeedback">Klik salah satu jawaban.</p>
+          <button class="btn alt" id="newRatioBtn" type="button">🔄 Soal Baru</button>
+        </div>
+        <div class="card">
+          <h3>🧩 Pasangkan Konsep</h3>
+          <p>Klik kartu di kiri, lalu klik pasangan yang cocok di kanan.</p>
+          <div class="match-area">
+            <div id="matchLeft"></div>
+            <div id="matchRight"></div>
+          </div>
+          <p class="feedback" id="matchFeedback">Pasangkan semua kartu dengan benar.</p>
+          <button class="btn ghost" id="resetMatchBtn" type="button">↻ Ulangi Game</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kuis">
+      <div class="section-title"><span class="icon">🏆</span><h2>Kuis Cepat Rasio Kelas 6</h2></div>
+      <p class="lead">Jawab pertanyaan berikut. Setelah memilih jawaban, kamu langsung mendapat umpan balik.</p>
+      <div id="quizContainer"></div>
+      <div class="score-box" id="scoreBox">Skor: 0 dari 6 ⭐</div>
+      <div class="hero-actions">
+        <button class="btn alt" id="resetQuizBtn" type="button">🔄 Ulangi Kuis</button>
+        <a class="btn warn" href="#aktivitas">📝 Lanjut LKPD</a>
+      </div>
+    </section>
+
+    <section class="section" id="aktivitas">
+      <div class="section-title"><span class="icon">📝</span><h2>LKPD Singkat / Lembar Aktivitas</h2></div>
+      <p class="lead">Bagian ini dapat dicetak atau dikerjakan di buku tulis.</p>
+      <div class="worksheet">
+        <ol>
+          <li>Di meja ada 8 pensil dan 12 penghapus. Tuliskan rasio pensil : penghapus, lalu sederhanakan.</li>
+          <li>Ada 15 kelereng merah dan 10 kelereng biru. Tentukan rasio merah : biru.</li>
+          <li>Dari soal nomor 2, tentukan rasio kelereng merah : seluruh kelereng.</li>
+          <li>Rasio buku cerita : buku pelajaran adalah 3 : 5. Jika buku cerita ada 12, berapa buku pelajaran?</li>
+          <li>Ibu membuat sirup dengan rasio sirup : air = 2 : 7. Jika sirup yang digunakan 6 gelas, berapa gelas air yang dibutuhkan?</li>
+          <li>Naya membaca 36 halaman dalam 6 menit. Berapa halaman yang dibaca Naya per menit?</li>
+        </ol>
+      </div>
+      <details>
+        <summary>🔑 Klik untuk melihat kunci jawaban LKPD</summary>
+        <ol>
+          <li>8 : 12 = 2 : 3.</li>
+          <li>15 : 10 = 3 : 2.</li>
+          <li>Merah : seluruh = 15 : 25 = 3 : 5.</li>
+          <li>3 bagian = 12, maka 1 bagian = 4. Buku pelajaran = 5 × 4 = 20.</li>
+          <li>2 bagian = 6, maka 1 bagian = 3. Air = 7 × 3 = 21 gelas.</li>
+          <li>36 : 6 = 6 halaman per menit.</li>
+        </ol>
+      </details>
+      <div class="hero-actions">
+        <button class="btn print-keep" type="button" onclick="window.print()">🖨️ Cetak LKPD</button>
+        <button class="btn ghost" type="button" id="celebrateBtn">🎉 Rayakan Belajar</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Dibuat untuk pembelajaran Matematika Kelas 6 SD • Materi Rasio • Semangat belajar! 💛
+  </footer>
+
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+    function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+    function simplify2(a,b){const g=gcd(a,b);return [a/g,b/g]}
+    function shuffle(arr){return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1])}
+
+    function updateProgress(){
+      const doc=document.documentElement;
+      const max=doc.scrollHeight-window.innerHeight;
+      const pct=max>0?Math.min(100,Math.round(window.scrollY/max*100)):0;
+      $('#progressBar').style.width=pct+'%';
+      $('#progressText').textContent=`Progress bintang: ${pct}% ${pct>80?'🌟 Hebat!':pct>45?'⭐ Lanjutkan!':'✨ Ayo mulai!'}`;
+    }
+    window.addEventListener('scroll',updateProgress); updateProgress();
+
+    function updateFruit(){
+      const red=+$('#redRange').value, blue=+$('#blueRange').value, total=red+blue;
+      $('#redVal').textContent=red; $('#blueVal').textContent=blue;
+      const p=simplify2(red,blue); const wh=simplify2(red,total); const bwh=simplify2(blue,total);
+      $('#partRatio').textContent=`${p[0]} : ${p[1]}`;
+      $('#wholeRatio').textContent=`${wh[0]} : ${wh[1]}`;
+      $('#fruitTip').textContent=`Apel : Jeruk = ${red} : ${blue} = ${p[0]} : ${p[1]}. Apel : semua = ${red} : ${total} = ${wh[0]} : ${wh[1]}. Jeruk : semua = ${blue} : ${total} = ${bwh[0]} : ${bwh[1]}.`;
+      const visual=$('#fruitVisual'); visual.innerHTML='';
+      const maxShow=40;
+      for(let i=0;i<Math.min(red,maxShow);i++){const d=document.createElement('span');d.className='dot red';d.textContent='A';visual.appendChild(d)}
+      for(let i=0;i<Math.min(blue,Math.max(0,maxShow-red));i++){const d=document.createElement('span');d.className='dot blue';d.textContent='J';visual.appendChild(d)}
+      if(total>maxShow){const d=document.createElement('b');d.style.color='#4d3fcf';d.textContent=`+ ${total-maxShow} buah lagi`;visual.appendChild(d)}
+    }
+    ['redRange','blueRange'].forEach(id=>$('#'+id).addEventListener('input',updateFruit)); updateFruit();
+
+    function updateTime(){
+      const pages=+$('#pageRange').value, mins=+$('#minuteRange').value;
+      $('#pageVal').textContent=pages; $('#minuteVal').textContent=mins;
+      const r=simplify2(pages,mins); const rate=pages/mins;
+      $('#timeRatio').textContent=`${pages} : ${mins}`;
+      $('#unitRate').textContent=Number.isInteger(rate)?rate:rate.toFixed(2);
+      $('#timeTip').textContent=`Rasio sederhana halaman : menit = ${r[0]} : ${r[1]}. Artinya rata-rata ${Number.isInteger(rate)?rate:rate.toFixed(2)} halaman per 1 menit.`;
+      const max=Math.max(pages,mins,1);
+      $('#pageBar').style.height=Math.max(24,Math.round(pages/max*130))+'px';
+      $('#minuteBar').style.height=Math.max(24,Math.round(mins/max*130))+'px';
+      $('#pageBar').textContent=`${pages} halaman`; $('#minuteBar').textContent=`${mins} menit`;
+    }
+    ['pageRange','minuteRange'].forEach(id=>$('#'+id).addEventListener('input',updateTime)); updateTime();
+
+    function updateEqual(){
+      const a=+$('#ratioA').value,b=+$('#ratioB').value,m=+$('#multiRange').value;
+      $('#ratioAVal').textContent=a; $('#ratioBVal').textContent=b; $('#multiVal').textContent=m;
+      $('#startRatio').textContent=`${a} : ${b}`;
+      $('#equalRatio').textContent=`${a*m} : ${b*m}`;
+      $('#equalTip').textContent=`${a} : ${b} senilai dengan ${a*m} : ${b*m} karena kedua bilangan dikali ${m}.`;
+    }
+    ['ratioA','ratioB','multiRange'].forEach(id=>$('#'+id).addEventListener('input',updateEqual)); updateEqual();
+
+    // Game rasio senilai
+    const bases=[[2,3],[3,4],[5,2],[4,7],[6,5],[7,9],[8,3]];
+    let answer='';
+    function newRatioGame(){
+      const base=bases[Math.floor(Math.random()*bases.length)]; const m=2+Math.floor(Math.random()*5);
+      answer=`${base[0]*m} : ${base[1]*m}`;
+      $('#baseRatioText').textContent=`${base[0]} : ${base[1]}`;
+      const choices=shuffle([answer,`${base[0]*m+1} : ${base[1]*m}`,`${base[1]*m} : ${base[0]*m}`,`${base[0]*(m+1)} : ${base[1]*m}`]);
+      const box=$('#ratioChoices'); box.innerHTML='';
+      choices.forEach(c=>{
+        const b=document.createElement('button'); b.type='button'; b.className='choice'; b.textContent=c;
+        b.addEventListener('click',()=>{
+          $$('#ratioChoices .choice').forEach(x=>x.disabled=true);
+          if(c===answer){b.classList.add('correct');$('#ratioFeedback').className='feedback good';$('#ratioFeedback').textContent='Benar! Rasio senilai dibuat dengan mengalikan kedua bilangan dengan angka yang sama. 🌟';burst()}
+          else{b.classList.add('wrong');$('#ratioFeedback').className='feedback bad';$('#ratioFeedback').textContent=`Belum tepat. Jawaban senilai adalah ${answer}.`}
+        }); box.appendChild(b);
+      });
+      $('#ratioFeedback').className='feedback'; $('#ratioFeedback').textContent='Klik salah satu jawaban.';
+    }
+    $('#newRatioBtn').addEventListener('click',newRatioGame); newRatioGame();
+
+    // Matching game
+    const pairs=[
+      ['Rasio','Perbandingan dua atau lebih besaran'],
+      ['Rasio senilai','Dikalikan/dibagi angka yang sama'],
+      ['Rasio satuan','Perbandingan terhadap 1 satuan'],
+      ['Bagian : keseluruhan','Salah satu bagian dibanding jumlah semua']
+    ];
+    let selected=null;
+    function setupMatch(){
+      selected=null; $('#matchLeft').innerHTML=''; $('#matchRight').innerHTML='';
+      shuffle(pairs).forEach(([left,right])=>{
+        const d=document.createElement('div'); d.className='match-card'; d.textContent=left; d.dataset.pair=right;
+        d.addEventListener('click',()=>{
+          if(d.classList.contains('done'))return;
+          $$('#matchLeft .match-card').forEach(x=>x.classList.remove('selected'));
+          selected=d; d.classList.add('selected'); $('#matchFeedback').className='feedback info'; $('#matchFeedback').textContent='Sekarang pilih pasangan di kanan.';
+        }); $('#matchLeft').appendChild(d);
+      });
+      shuffle(pairs.map(p=>p[1])).forEach(right=>{
+        const d=document.createElement('div'); d.className='match-card'; d.textContent=right; d.dataset.pair=right;
+        d.addEventListener('click',()=>{
+          if(d.classList.contains('done'))return;
+          if(!selected){$('#matchFeedback').className='feedback bad';$('#matchFeedback').textContent='Pilih kartu kiri terlebih dahulu.';return}
+          if(selected.dataset.pair===right){selected.classList.add('done');selected.classList.remove('selected');d.classList.add('done');selected=null;$('#matchFeedback').className='feedback good';$('#matchFeedback').textContent='Cocok! Pasangan konsep benar. ✅';if($$('#matchLeft .done').length===pairs.length){$('#matchFeedback').textContent='Semua pasangan benar! Kamu hebat! 🎉';burst()}}
+          else{$('#matchFeedback').className='feedback bad';$('#matchFeedback').textContent='Coba lagi, pasangan itu belum cocok.'}
+        }); $('#matchRight').appendChild(d);
+      });
+      $('#matchFeedback').className='feedback'; $('#matchFeedback').textContent='Pasangkan semua kartu dengan benar.';
+    }
+    $('#resetMatchBtn').addEventListener('click',setupMatch); setupMatch();
+
+    // Quiz
+    const quiz=[
+      {q:'1. Rasio 6 apel terhadap 4 jeruk adalah ...',opts:['6 : 4','4 : 6','10 : 6','6 : 10'],ans:0,exp:'Urutannya apel : jeruk, jadi 6 : 4.'},
+      {q:'2. Bentuk sederhana dari 12 : 18 adalah ...',opts:['3 : 2','2 : 3','6 : 9','12 : 6'],ans:1,exp:'FPB 12 dan 18 adalah 6, jadi 12 : 18 = 2 : 3.'},
+      {q:'3. Rasio yang senilai dengan 3 : 5 adalah ...',opts:['6 : 8','9 : 15','12 : 10','5 : 3'],ans:1,exp:'3 : 5 dikali 3 menjadi 9 : 15.'},
+      {q:'4. Ada 8 siswa laki-laki dan 12 siswa perempuan. Rasio laki-laki : perempuan paling sederhana adalah ...',opts:['8 : 12','4 : 6','2 : 3','3 : 2'],ans:2,exp:'8 : 12 dibagi 4 menjadi 2 : 3.'},
+      {q:'5. Ada 5 kue cokelat dan 15 kue vanila. Rasio cokelat : seluruh kue adalah ...',opts:['5 : 15','5 : 20','1 : 3','3 : 1'],ans:1,exp:'Seluruh kue = 5 + 15 = 20, jadi cokelat : semua = 5 : 20.'},
+      {q:'6. Sari mengetik 40 kata dalam 5 menit. Rasio satuannya adalah ...',opts:['5 kata per menit','8 kata per menit','10 kata per menit','20 kata per menit'],ans:1,exp:'40 ÷ 5 = 8 kata per menit.'}
+    ];
+    let score=0, answered=[];
+    function renderQuiz(){
+      score=0; answered=Array(quiz.length).fill(false); updateScore(); const c=$('#quizContainer'); c.innerHTML='';
+      quiz.forEach((item,i)=>{
+        const card=document.createElement('div'); card.className='card quiz-card';
+        const h=document.createElement('h3'); h.textContent=item.q; card.appendChild(h);
+        const opts=document.createElement('div'); opts.className='quiz-options';
+        const fb=document.createElement('p'); fb.className='feedback'; fb.textContent='Pilih jawabanmu.';
+        item.opts.forEach((op,j)=>{
+          const b=document.createElement('button'); b.type='button'; b.className='quiz-option'; b.textContent=op;
+          b.addEventListener('click',()=>{
+            if(answered[i])return; answered[i]=true;
+            if(j===item.ans){b.classList.add('correct'); score++; fb.className='feedback good'; fb.textContent='Benar! '+item.exp; burst(10)}
+            else{b.classList.add('wrong'); opts.children[item.ans].classList.add('correct'); fb.className='feedback bad'; fb.textContent='Ayo perhatikan lagi. '+item.exp}
+            updateScore();
+          }); opts.appendChild(b);
+        });
+        card.appendChild(opts); card.appendChild(fb); c.appendChild(card);
+      });
+    }
+    function updateScore(){ $('#scoreBox').textContent=`Skor: ${score} dari ${quiz.length} ${score===quiz.length?'🏅 Sempurna!':score>=4?'⭐ Bagus!':'✨ Semangat!'}`; }
+    $('#resetQuizBtn').addEventListener('click',renderQuiz); renderQuiz();
+
+    function burst(n=24){
+      const colors=['#ff5ca8','#ff9f1c','#25c46a','#00aeb3','#6d5dfc','#ffd166'];
+      for(let i=0;i<n;i++){
+        const el=document.createElement('div'); el.className='confetti'; el.style.left=Math.random()*100+'vw'; el.style.background=colors[Math.floor(Math.random()*colors.length)]; el.style.animationDelay=(Math.random()*.35)+'s'; document.body.appendChild(el); setTimeout(()=>el.remove(),2200);
+      }
+    }
+    $('#celebrateBtn').addEventListener('click',()=>burst(42));
+  </script>
+</body>
+</html>
